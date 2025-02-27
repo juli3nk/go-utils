@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 func FileExists(f string) bool {
@@ -88,4 +89,21 @@ func copyFileContents(src, dst string) error {
 	}
 
 	return nil
+}
+
+func FilterFileByExtension(files []string, ext string) []string {
+	if ext == "" {
+		return nil
+	}
+	ext = "." + ext
+
+	var result []string
+
+	for _, f := range files {
+		if strings.HasSuffix(strings.ToLower(f), strings.ToLower(ext)) {
+			result = append(result, f)
+		}
+	}
+
+	return result
 }
